@@ -10,7 +10,7 @@ public class BMIcalculator implements calculator {
     public BMIcalculator(int weight, int height) {
 
         if (weight<= 0 || height <= 0){
-            throw new IllegalArgumentException("Put positive value");
+            throw new IllegalArgumentException("Put greater than 0 value");
         }
         if (weight > 300){
             throw new IllegalArgumentException("Limit is 300kg");

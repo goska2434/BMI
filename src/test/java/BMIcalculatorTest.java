@@ -1,10 +1,8 @@
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
-import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.jupiter.api.Assertions.*;
+
 import static org.junit.Assert.*;
 
 @RunWith(JUnitParamsRunner.class)
@@ -16,7 +14,7 @@ public class BMIcalculatorTest {
     public void calculateTest(int weight, int height, String expectedResult) {
         BMIcalculator calculator = new BMIcalculator(weight, height);
         String BMIResult = calculator.calculate();
-       Assert.assertEquals(expectedResult, BMIResult);
+       assertEquals(expectedResult, BMIResult);
     }
 
     @Test
@@ -25,34 +23,36 @@ public class BMIcalculatorTest {
     public void interpretTest(int weight, int height, String expectedResult){
         BMIcalculator calculator = new BMIcalculator(weight, height);
         String BMIResult = calculator.interpret();
-        Assert.assertEquals(expectedResult,BMIResult);
+        assertEquals(expectedResult,BMIResult);
     }
 
-    @Ignore
-    @Test
-    @Parameters({"0, 160","40, 0", "0, 0" })
-    public void zeroCalculateExceptionTest(int weight, int height) {
+
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters({"0, 160, Put greater than 0 value","40, 0, Put greater than 0 value", "0, 0, Put greater than 0 value" })
+    public void zeroCalculateExceptionTest(int weight, int height, String expectedResult) {
         BMIcalculator calculator = new BMIcalculator(weight, height);
-        calculator.calculate();
-        assertThrows(IllegalArgumentException.class, () -> calculator.calculate());
+        String BMIResult = calculator.calculate();
+        assertEquals(expectedResult,BMIResult);
+
     }
 
-    @Ignore
-    @Test
-    @Parameters({"-10, 160","40, -10", "-110, -60" })
-    public void negativeCalculateExceptionTest(int weight, int height) {
+
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters({"-10, 160, Put greater than 0 value","40, -10, Put greater than 0 value",
+            "-110, -60, Put greater than 0 value" })
+    public void negativeValueCalculateExceptionTest(int weight, int height, String expectedResult) {
         BMIcalculator calculator = new BMIcalculator(weight, height);
-        calculator.calculate();
-        assertThrows(IllegalArgumentException.class, () -> calculator.calculate());
+        String BMIResult = calculator.calculate();
+       assertEquals(expectedResult,BMIResult);
     }
 
-    @Ignore
-    @Test
-    @Parameters({"400, 160","40, 300", "340, 500" })
-    public void overlimitCalculateExceptionTest(int weight, int height) {
+
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters({"400, 160, Limit is 300kg","40, 300, Limit is 250cm", "340, 500, Limit is 300kg" })
+    public void overLimitCalculateExceptionTest(int weight, int height, String expectedResult) {
         BMIcalculator calculator = new BMIcalculator(weight, height);
-        calculator.calculate();
-        assertThrows(IllegalArgumentException.class, () -> calculator.calculate());
+        String BMIResult = calculator.calculate();
+       assertEquals(expectedResult,BMIResult);
     }
 
 
