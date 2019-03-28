@@ -2,18 +2,35 @@ import java.util.Scanner;
 
 public class BMIcalculator implements calculator {
 
-    double BMIresult;
-    String template = "You're %s";
-    String text ="";
+    private double BMIresult;
+    private String template = "You're %s";
+    private String text ="";
+    private double heightInMeters;
+
     public BMIcalculator(int weight, int height) {
 
-         BMIresult = weight / Math.pow((height*0.01),2);
+        if (weight<= 0 || height <= 0){
+            throw new IllegalArgumentException("Put positive value");
+        }
+        if (weight > 300){
+            throw new IllegalArgumentException("Limit is 300kg");
+        }
+        if (height > 250){
+            throw new IllegalArgumentException("Limit is 250cm");
+        }
+
+         heightInMeters = (double)height / 100;
+         BMIresult = weight / Math.pow(heightInMeters,2);
+         BMIresult*=100;
+         BMIresult = Math.round(BMIresult);
+         BMIresult/=100;
+
 
     }
     @Override
     public String calculate() {
 
-        return "Your BMI index is: " + BMIresult;
+        return "BMI: " + BMIresult;
     }
 
     @Override

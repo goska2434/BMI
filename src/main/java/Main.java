@@ -10,7 +10,7 @@ public class Main {
         int height = scanner.nextInt();
 
         BMIcalculator bmi = new BMIcalculator(weight, height);
-        System.out.println(bmi.calculate());
+        bmi.calculate();
         System.out.println(bmi.interpret());
 
 
